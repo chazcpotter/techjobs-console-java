@@ -84,6 +84,31 @@ public class JobData {
         return jobs;
     }
 
+    public static ArrayList<HashMap<String, String>>  findByValue(String value){
+        //load data if not already loaded
+        loadData();
+
+        //create our new bag to store our return
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        //only add job if searchValue is contained within a return value of one of our keys
+        for(HashMap<String, String> aJob: allJobs) {
+
+
+            for (String aKey : aJob.keySet()) {
+                String currentValue = aJob.get(aKey);
+                String lowerCurrentValue = currentValue.toLowerCase();
+
+                if(lowerCurrentValue.contains(value)){
+                    jobs.add(aJob);
+                    break;
+                }
+            }
+        }
+
+        return jobs;
+    }
+
     /**
      * Read in data from a CSV file and store it in a list
      */
@@ -124,5 +149,6 @@ public class JobData {
             e.printStackTrace();
         }
     }
+
 
 }
